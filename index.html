@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>ALLDAY PROJECT</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  body { -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+  #stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  #stage img {
+    max-width: 100vw; max-height: 100vh;
+    max-height: 100dvh;
+    object-fit: contain;
+    -webkit-user-drag: none; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div id="stage" role="button" aria-label="탭하면 재생/정지">
+  <img src="image.jpg" alt="">
+</div>
+<audio id="song" src="song.mp3" preload="auto" playsinline></audio>
+<script>
+  const audio = document.getElementById('song');
+  const stage = document.getElementById('stage');
+
+  stage.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  });
+
+  // 곡이 끝나면 처음으로 돌려서 다시 한 번 탭하면 재생되게
+  audio.addEventListener('ended', () => { audio.currentTime = 0; });
+</script>
+</body>
+</html>
